@@ -7,7 +7,8 @@
 ## GET Users Array end point
 | Method  | Endpoint | Body (required)| response on httpie  |
 | ------------- | ------------- | -------------  | -------------  | 
-| [GET] all users  | /api/users | token(not restricted as of now)  | Results in array of users. | 
+| [GET] all users  | /api/users | Authorized Header (not restricted as of now) | Results in array of users. | 
+
 
 
 
