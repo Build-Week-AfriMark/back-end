@@ -1,4 +1,4 @@
-## REGISTER/LOGIN(Sign Up end point)
+## REGISTER/LOGIN end points
 | Method  | Endpoint | Body (required) | Notes |
 | ------------- | ------------- | -------------  | -------------  |
 | [POST] register  | /api/auth/register | username & password  | Creates a new user object in the database. |
