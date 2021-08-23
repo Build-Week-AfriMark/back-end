@@ -2,10 +2,7 @@
 | Method  | Endpoint | Body (required) | Notes | response on http  |
 | ------------- | ------------- | -------------  | -------------  | -------------  |
 | [POST] register  | /api/auth/register | username & password  | Creates a new user object in the database. |  id: 3 username:lupita password:(hashed) |
-| [POST] register  | /api/auth/login  | username & password  | Returns a welcome message and the JSON Web Token. | {
-    "message": "welcome, lupita",
-    "token": "TokEnEXamPle1234"
-} |
+| [POST] register  | /api/auth/login  | username & password  | Returns a welcome message and the JSON Web Token. |  "message": "welcome, lupita", "token": "TokEnEXamPle1234" |
 
 
 
