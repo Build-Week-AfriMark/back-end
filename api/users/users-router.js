@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Users = require('./users-model');
+const Users = require('../auth/auth-model');
 //add midware to restrict access to end point
 
 
