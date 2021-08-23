@@ -1,3 +1,12 @@
+## REGISTER/LOGIN(Sign Up end point)
+| Method  | Endpoint | Body (required) | Notes |
+| ------------- | ------------- | -------------  | -------------  |
+| [POST] register  | /api/auth/register | username & password  | Creates a new user object in the database. |
+| [POST] register  | /api/auth/login  | username & password  | Returns a welcome message and the JSON Web Token. |
+
+
+
+
 # Build Week Scaffolding for Node and PostgreSQL
 
 ## Video Tutorial
