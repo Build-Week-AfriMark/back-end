@@ -68,7 +68,7 @@ router.post('/login',  validateCreds, (req, res) => {
 
 function buildToken(user) {
   const payload = {
-    subject: user.id,
+    subject: user.id, //user_id??
     username: user.username,
   }
   const options = {
