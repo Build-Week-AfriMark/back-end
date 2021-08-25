@@ -7,10 +7,11 @@ https://build-week-afrimark.herokuapp.com/
 | [POST] register  | /api/auth/register | username & password  | Creates a new user object in the database. |  id: 3 username:lupita password:(hashed) |
 | [POST] register  | /api/auth/login  | username & password  | Returns a welcome message and the JSON Web Token. |  "message": "welcome, lupita", "token": "TokEnEXamPle1234" |
 
-## USER End Point
+## USER End Points
 | Method  | Endpoint | Body (required)| Response  |
 | ------------- | ------------- | -------------  | -------------  | 
 | [GET] all users  | /api/users | Authorized Header (not restricted as of now) | Results in array of users. | 
+| [GET] user by id  | /api/users/:id | Authorized Header (not restricted as of now) | returns user object (pending) | 
 
 ## ITEMS End Points (work in progress)
 | Method  | Endpoint | Body (required)| Response  |
