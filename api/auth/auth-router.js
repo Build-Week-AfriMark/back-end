@@ -30,17 +30,18 @@ const validateUsername = (req, res, next) => {
 
 
 
-
-
 router.post('/register', validateUsername, validateCreds,  (req, res, next) => {
   const { username, password } = req.body
   const hash = bcrypt.hashSync(password, 8) //2^8
- User.add({ username, password: hash })
+ 
+  User.add({ username, password: hash })
  .then(newUser => {
-   res.status(201).json(newUser)
+   res.status(201).json({
+    username: newUser.username,
+    password: newUser.password
+   })
  })
  .catch(next)
- 
 });
 
 router.post('/login',  validateCreds, (req, res) => {
@@ -68,7 +69,7 @@ router.post('/login',  validateCreds, (req, res) => {
 
 function buildToken(user) {
   const payload = {
-    subject: user.id, //user_id??
+    subject: user.user_id, //user_id??
     username: user.username,
   }
   const options = {

@@ -16,11 +16,11 @@ function getUsername(username) {
     .first()
 }
 
-function findById(id){
-    return db("users")
-    .where({id})
-    .first()
-}
+// function findById(user_id){
+//     return db("users")
+//     .where({user_id})
+//     .first()
+// }
 
 // async function add(user) {
 //     const [userId] = await db('users').insert(user)
@@ -29,14 +29,25 @@ function findById(id){
 //     .select('u.username', 'u.id')
 // }
 
-async function add(user) {
-    const [newUserObject] = await db('users').insert(user, ['user_id', 'username', 'password'])
-    return newUserObject // { user_id: 7, username: 'foo', password: 'xxxxxxx' }
+// async function add(user) {
+//     const [newUserObject] = await db('users').insert(user, ['id', 'username', 'password'])
+//     return newUserObject // { user_id: 7, username: 'foo', password: 'xxxxxxx' }
+ // }
+ function findById(user_id) {
+    return db("users")
+    .select('user_id', "username")
+    .where('user_id', user_id).first();
+  }
+
+ async function add(user) {
+    const [id] = await db("users").insert(user);
+    return findById(id);
   }
 
 module.exports = {
     find,
     findBy,
+    findById,
     add,
     getUsername
 }
