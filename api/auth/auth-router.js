@@ -28,16 +28,6 @@ const validateUsername = (req, res, next) => {
   .catch(next)
 }
 
-// const newUser = {
-//           username: username,
-//           password: hash,
-//           name: name,
-//           email: email
-//       }
-//        Users.add(newUser)
-//           .then(user => {
-//               res.status(201).json(user)
-//           })
 
 
 router.post('/register', validateUsername, validateCreds,  (req, res, next) => {
