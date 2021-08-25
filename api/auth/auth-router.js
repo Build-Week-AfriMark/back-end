@@ -36,10 +36,7 @@ router.post('/register', validateUsername, validateCreds,  (req, res, next) => {
  
   User.add({ username, password: hash })
  .then(newUser => {
-   res.status(201).json({
-    username: newUser.username,
-    password: newUser.password
-   })
+   res.status(201).json(newUser)
  })
  .catch(next)
 });
