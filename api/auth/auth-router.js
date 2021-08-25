@@ -28,6 +28,16 @@ const validateUsername = (req, res, next) => {
   .catch(next)
 }
 
+// const newUser = {
+//           username: username,
+//           password: hash,
+//           name: name,
+//           email: email
+//       }
+//        Users.add(newUser)
+//           .then(user => {
+//               res.status(201).json(user)
+//           })
 
 
 router.post('/register', validateUsername, validateCreds,  (req, res, next) => {
@@ -36,10 +46,7 @@ router.post('/register', validateUsername, validateCreds,  (req, res, next) => {
  
   User.add({ username, password: hash })
  .then(newUser => {
-   res.status(201).json({
-    username: newUser.username,
-    password: newUser.password
-   })
+   res.status(201).json(newUser)
  })
  .catch(next)
 });
