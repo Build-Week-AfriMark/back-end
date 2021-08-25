@@ -4,15 +4,24 @@ function getAll() {
     return db("items");
 }
 
-function addItem(item) {
-    return db("items")
-      .insert(item, "id");
-}
 
-function getItemById(id) {
-    return db("items")
-      .where({ id })
-      .first();
+
+async function addItem(item) {
+    return db('items').insert(item, 'id').then(([id]) => {
+      console.log(id, "id")
+      return findById(id)
+  
+   })
+  }
+
+
+async function findById(id) {
+  console.log("id", id)
+  const item = await db("items")
+    .where({ id })
+    .first();
+  console.log("item", item)
+  return item
 }
 
 function getItemsByCategory(category) {
@@ -46,7 +55,8 @@ module.exports = {
     getAll,
     addItem,
     getItemsByCategory,
-    getItemById,
+    // getItemById,
+    findById,
     updateItem,
     deleteItem,
     find,

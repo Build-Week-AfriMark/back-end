@@ -34,7 +34,6 @@ return db('users').insert(user, 'user_id').then(([user_id]) => {
     return findById(user_id)
 
  })
-
 }
 
 

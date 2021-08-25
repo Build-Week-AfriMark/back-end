@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 //GET BY /:ID >>>>>> needs middle ware if unexisting id is inputted
 router.get("/:id",  (req, res) => {
     const id = req.params.id;
-    Item.getItemById(id)
+    Item.findById(id)
       .then(item => {
         res.status(200).json(item);
       })
@@ -22,9 +22,25 @@ router.get("/:id",  (req, res) => {
       });
   });
 
+
+  function validateContent(req, res, next) {
+    if (!req.body) {
+      res.status(400).json({ message: "Items field is required." });
+    } else {
+      next();
+    }
+  }
+
+
   // adds new item 200 ok
-  router.post('/add-item', (req, res) => {
-    res.json('can add an item')
+  router.post('/add-item', validateContent , (req, res) => {
+    Item.addItem(req.body)
+    .then(item => {
+      res.status(200).json(item);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
 })
 
   // update an item status 201

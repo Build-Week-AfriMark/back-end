@@ -11,14 +11,14 @@ https://build-week-afrimark.herokuapp.com/
 | Method  | Endpoint | Body (required)| Response  |
 | ------------- | ------------- | -------------  | -------------  | 
 | [GET] all users  | /api/users | Authorized Header (not restricted as of now) | Results in array of users. | 
-| [GET] user by id  | /api/users/:id | Authorized Header (not restricted as of now) | returns user object (pending) | 
+| [GET] user by id  | /api/users/:id | Authorized Header (not restricted as of now) | returns user object  | 
 
 ## ITEMS End Points (work in progress)
 | Method  | Endpoint | Body (required)| Response  |
 | ------------- | ------------- | -------------  | -------------  | 
 | [GET] all items  | /api/items | Authorized Header (not restricted as of now) | Results in array of items. | 
-| [GET] item by id  | /api/items/:id | Authorized Header (not restricted as of now) | Results in an item object. (pending) | 
-| [POST] new item  | /api/items/add-item | Authorized Header (not restricted as of now) | (pending) | 
+| [GET] item by id  | /api/items/:id | Authorized Header (not restricted as of now) | Results in an item object. | 
+| [POST] add new item  | /api/items/add-item | Authorized Header (not restricted as of now) | new item object  | 
 | [PUT] update an item  | /api/items/:id | Authorized Header (not restricted as of now) | (pending) | 
 | [DELETE] by id  | /api/items/:id | Authorized Header (not restricted as of now) | (pending) | 
 
