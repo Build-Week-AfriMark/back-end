@@ -29,10 +29,11 @@ function getItemsByCategory(category) {
       .where({ category }) 
 }
 
-function updateItem(id, updates) {
-    return db("items")
-      .where({ id })
-      .update(updates);
+function updateItem(id, changes) {
+  // return db("items").where({ id }).update(changes).then(([id]) => {
+  //   console.log (id, "id")
+  //   return findById(id)
+  // }) 
 }
 
   function deleteItem(id) {
