@@ -44,13 +44,29 @@ router.get("/:id",  (req, res) => {
 })
 
   // update an item status 201
-  router.put('/:id', (req, res) => {
-      res.json('can update an item')
-  })
+  router.put('/:id', (req, res, next) => {
+    const id = req.params.id;
+    const changes = req.body; 
+    Item.updateItem(id, changes)
+      .then(updatedItem => {
+        res.status(201).json(updatedItem);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+})
 
 // deletes an item 200 OK
 router.delete('/:id', (req, res) => {
-    res.json('can delete an item')
-})
+  const id = req.params.id;
+  Item.deleteItem(id)
+    .then(deletedItem => {
+      res.status(200).json({ message: `Item with ${id} successfully deleted.`});
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 
 module.exports = router
