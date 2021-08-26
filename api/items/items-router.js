@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Item = require('./items-model')
 //middleware
+const {restrict} = require('../auth/restricted');
   const {
     validateContent,
     validateId,
@@ -28,7 +29,8 @@ router.get("/:id",  validateId, (req, res) => {
 
   // add middleware to validate user
   router.post('/add-item', 
-  validateContent, 
+  validateContent,
+  restrict, 
   (req, res) => {
     Item.addItem(req.body)
     .then(item => {
@@ -44,6 +46,7 @@ router.get("/:id",  validateId, (req, res) => {
   router.put('/:id', 
   validateId, 
   validateContent, 
+  restrict,
    (req, res, next) => {
     const {id} = req.params;
   const changes = req.body;
@@ -57,7 +60,7 @@ router.get("/:id",  validateId, (req, res) => {
 })
 
 // validate user id
-router.delete('/:id', validateId, (req, res) => {
+router.delete('/:id', validateId, restrict, (req, res) => {
   const id = req.params.id;
   Item.deleteItem(id)
     .then(deletedItem => {

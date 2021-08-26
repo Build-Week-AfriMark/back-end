@@ -2,8 +2,7 @@ const router = require('express').Router()
 const Users = require('../auth/auth-model');
 const validateId = require('./users-midware');
 
-
-router.get("/", (req, res) => { 
+router.get("/",  (req, res) => { 
     Users.find()
       .then(users => {
         res.json(users);

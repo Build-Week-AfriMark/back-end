@@ -8,13 +8,12 @@ const validateCreds = (req, res, next) => {
       })
     } else {
       next()
-    }
-    }
-    
-    
-    const validateUsername = (req, res, next) => {
-      User.getUsername(req.body.username)
-      .then(data => {
+  }
+}
+        
+const validateUsername = (req, res, next) => {
+    User.getUsername(req.body.username)
+    .then(data => {
         if (data) {
           next(
             res.status(400).json({message: `username ${req.body.username} taken`})
@@ -25,6 +24,7 @@ const validateCreds = (req, res, next) => {
       })
       .catch(next)
     }
+
 
     module.exports ={
         validateCreds,
