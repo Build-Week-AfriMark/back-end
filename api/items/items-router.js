@@ -1,11 +1,15 @@
 const router = require('express').Router()
 const Item = require('./items-model')
+//middleware
   const {
     validateContent,
     validateId,
+    validateItemName,
+    validateItemLocation,
+    validateItemDesc,
+    validateItemPrice,
   } = require('./items-midware')
 
-// GET ITEMS
 router.get('/', (req, res, next) => {
     Item.getAll()
     .then(items => {
@@ -14,7 +18,6 @@ router.get('/', (req, res, next) => {
     .catch(err => res.send(err));
 })
 
-//GET BY /:ID  
 router.get("/:id",  validateId, (req, res) => {
     const id = req.params.id;
     Item.findById(id)
@@ -26,19 +29,15 @@ router.get("/:id",  validateId, (req, res) => {
       });
   });
 
-// >>>>>> Middleware start
-  // function validateContent(req, res, next) {
-  //   if (!req.body) {
-  //     res.status(400).json({ message: "Items field is required." });
-  //   } else {
-  //     next();
-  //   }
-  // }
-// >>>>>> Middleware ends
-
 
   // add middleware to validate user
-  router.post('/add-item', validateContent , (req, res) => {
+  router.post('/add-item', 
+  validateContent, 
+  validateItemName, 
+  validateItemLocation,
+  validateItemDesc,
+  validateItemPrice,
+  (req, res) => {
     Item.addItem(req.body)
     .then(item => {
       res.status(200).json(item);
@@ -50,7 +49,14 @@ router.get("/:id",  validateId, (req, res) => {
 
 
   // add middleware to validate user
-  router.put('/:id', validateId, validateContent, (req, res, next) => {
+  router.put('/:id', 
+  validateId, 
+  validateContent, 
+  validateItemName, 
+  validateItemLocation,
+  validateItemDesc,
+  validateItemPrice,
+   (req, res, next) => {
     const {id} = req.params;
   const changes = req.body;
   Item.updateItem(id, changes)

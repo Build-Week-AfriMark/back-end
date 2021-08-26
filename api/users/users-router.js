@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Users = require('../auth/auth-model');
+const validateId = require('./users-midware');
 
 
 router.get("/", (req, res) => { 
@@ -10,23 +11,6 @@ router.get("/", (req, res) => {
       .catch(err => res.send(err));
   });
 
-  function validateId(req, res, next) {
-    const id = req.params.id;
-    Users.findById(id)
-      .then(user => {
-        if (user) {
-          req.user = user;
-          next();
-        } else {
-          res.status(404).json({ message: "User doesn't exist." });
-        }
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
-  }
-
-// validate userID exists 
   router.get("/:id", validateId, (req, res) => {   
     Users.findById(req.params.id)
       .then(user => {

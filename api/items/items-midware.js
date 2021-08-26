@@ -25,7 +25,60 @@ function validateContent(req, res, next) {
       });
   }
 
+
+  function validateItemName(req, res, next) {
+    const {name} = req.body
+  if (
+    name === undefined || typeof name !== "string" || !name.trim() ) {
+      next(
+        res.status(400).json({message: "item name required"})
+      )
+    } else {
+      next()
+    }
+  }
+ 
+  function validateItemLocation(req, res, next) {
+    const {location} = req.body
+  if (
+    location === undefined || typeof location !== "string" || !location.trim() ) {
+      next(
+        res.status(400).json({message: "item location required"})
+      )
+    } else {
+      next()
+    }
+  }
+
+  function validateItemDesc(req, res, next) {
+    const {description} = req.body
+  if (
+    description === undefined || typeof description !== "string" || !description.trim() ) {
+      next(
+        res.status(400).json({message: "item description required"})
+      )
+    } else {
+      next()
+    }
+  }
+
+  function validateItemPrice(req, res, next) {
+    const {price} = req.body
+  if (
+    price === undefined || typeof price !== "string" || !price.trim() ) {
+      next(
+        res.status(400).json({message: "item price required"})
+      )
+    } else {
+      next()
+    }
+  }
+
 module.exports =  {
     validateId,
     validateContent,
+    validateItemName,
+    validateItemLocation,
+    validateItemDesc,
+    validateItemPrice,
 }
