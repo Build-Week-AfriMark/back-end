@@ -11,8 +11,11 @@ server.use(express.json())
 server.use(helmet())
 server.use(cors())
 
+
 server.use('/api/auth', authRouter);
+// restrict /api/users
 server.use("/api/users", usersRouter);
+
 server.use("/api/items", itemsRouter);
 
 server.get('/', (req,res) => {

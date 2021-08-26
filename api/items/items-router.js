@@ -1,5 +1,9 @@
 const router = require('express').Router()
 const Item = require('./items-model')
+  const {
+    validateContent,
+    validateId,
+  } = require('./items-midware')
 
 // GET ITEMS
 router.get('/', (req, res, next) => {
@@ -10,7 +14,7 @@ router.get('/', (req, res, next) => {
     .catch(err => res.send(err));
 })
 
-//GET BY /:ID >>>>>> needs middle ware if un-existing id is inputted
+//GET BY /:ID  
 router.get("/:id",  validateId, (req, res) => {
     const id = req.params.id;
     Item.findById(id)
@@ -22,32 +26,18 @@ router.get("/:id",  validateId, (req, res) => {
       });
   });
 
+// >>>>>> Middleware start
+  // function validateContent(req, res, next) {
+  //   if (!req.body) {
+  //     res.status(400).json({ message: "Items field is required." });
+  //   } else {
+  //     next();
+  //   }
+  // }
+// >>>>>> Middleware ends
 
-  function validateContent(req, res, next) {
-    if (!req.body) {
-      res.status(400).json({ message: "Items field is required." });
-    } else {
-      next();
-    }
-  }
 
-  function validateId(req, res, next) {
-    const id = req.params.id;
-    Item.findById(id)
-      .then(item => {
-        if (item) {
-          req.item = item;
-          next();
-        } else {
-          res.status(404).json({ message: "Item doesn't exist." });
-        }
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
-  }
-
-  // adds new item 200 ok
+  // add middleware to validate user
   router.post('/add-item', validateContent , (req, res) => {
     Item.addItem(req.body)
     .then(item => {
@@ -59,7 +49,7 @@ router.get("/:id",  validateId, (req, res) => {
 })
 
 
-  // update an item status 201
+  // add middleware to validate user
   router.put('/:id', validateId, validateContent, (req, res, next) => {
     const {id} = req.params;
   const changes = req.body;
@@ -72,7 +62,7 @@ router.get("/:id",  validateId, (req, res) => {
     });
 })
 
-// deletes an item 200 OK
+// validate user id
 router.delete('/:id', validateId, (req, res) => {
   const id = req.params.id;
   Item.deleteItem(id)
