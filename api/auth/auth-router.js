@@ -3,10 +3,7 @@ const {JWT_SECRET} = require('./secret')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('./auth-model');
-const {
-  validateCreds,
-  validateUsername } = require('./auth-midware')
-
+const {validateCreds, validateUsername } = require('./auth-midware')
 
 router.post('/register', validateUsername, validateCreds,  (req, res, next) => {
   const { username, password } = req.body
