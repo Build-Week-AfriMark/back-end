@@ -19,7 +19,7 @@ https://build-week-afrimark.herokuapp.com/
 | [GET] all items  | /api/items | Authorized Header (not restricted as of now) | Results in array of items. | 
 | [GET] item by id  | /api/items/:id | Authorized Header (not restricted as of now) | Results in an item object. | 
 | [POST] add new item  | /api/items/add-item | Authorized Header (not restricted as of now) | new item object  | 
-| [PUT] update an item  | /api/items/:id | Authorized Header (not restricted as of now) | (pending) | 
+| [PUT] update an item  | /api/items/:id | Authorized Header (not restricted as of now) | updates item, returns id of updated item | 
 | [DELETE] by id  | /api/items/:id | Authorized Header (not restricted as of now) | message: 'Item with ${id} successfully deleted.' | 
 
 

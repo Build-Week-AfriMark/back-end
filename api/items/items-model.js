@@ -4,16 +4,13 @@ function getAll() {
     return db("items");
 }
 
-
-
 async function addItem(item) {
     return db('items').insert(item, 'id').then(([id]) => {
       console.log(id, "id")
       return findById(id)
   
    })
-  }
-
+}
 
 async function findById(id) {
   console.log("id", id)
@@ -30,10 +27,9 @@ function getItemsByCategory(category) {
 }
 
 function updateItem(id, changes) {
-  // return db("items").where({ id }).update(changes).then(([id]) => {
-  //   console.log (id, "id")
-  //   return findById(id)
-  // }) 
+  return db("items")
+    .where({ id })
+    .update(changes); 
 }
 
   function deleteItem(id) {
@@ -50,13 +46,12 @@ function updateItem(id, changes) {
       query.where({ category });
     }
     return query;
-  }
+}
 
 module.exports = {
     getAll,
     addItem,
     getItemsByCategory,
-    // getItemById,
     findById,
     updateItem,
     deleteItem,

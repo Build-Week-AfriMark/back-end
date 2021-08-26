@@ -16,18 +16,16 @@ function getUsername(username) {
     .first()
 }
 
+async function findById(user_id) {
+    console.log("user_id", user_id)
+    const user = await db("users")
+      .where({ user_id })
+      .first();
+    console.log("user",user)
+    return user
+}
 
-
-        async function findById(user_id) {
-            console.log("user_id", user_id)
-            const user = await db("users")
-              .where({ user_id })
-              .first();
-            console.log("user",user)
-            return user
-        }
-
-        
+       
  async function add(user) {
 return db('users').insert(user, 'user_id').then(([user_id]) => {
     console.log(user_id, "user_id")
