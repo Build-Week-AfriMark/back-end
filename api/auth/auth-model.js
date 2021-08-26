@@ -1,13 +1,22 @@
 const db = require('../data/db-config');
 
 function find() {
-    return db("users");
+    return db("users").select('username', 'user_id');
 }
 
 function findBy(filter){
     return db("users")
     .where(filter)
-    .first()
+    .first()  
+}
+async function findById(user_id) {
+    console.log("user_id", user_id)
+    const user = await db("users")
+      .where({ user_id })
+      .first()
+    .select('username', 'user_id');
+    console.log("user",user)
+    return user
 }
 
 function getUsername(username) {
@@ -15,17 +24,7 @@ function getUsername(username) {
     .where({username})
     .first()
 }
-
-async function findById(user_id) {
-    console.log("user_id", user_id)
-    const user = await db("users")
-      .where({ user_id })
-      .first();
-    console.log("user",user)
-    return user
-}
-
-       
+     
  async function add(user) {
 return db('users').insert(user, 'user_id').then(([user_id]) => {
     console.log(user_id, "user_id")
@@ -33,7 +32,6 @@ return db('users').insert(user, 'user_id').then(([user_id]) => {
 
  })
 }
-
 
 
 module.exports = {

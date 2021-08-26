@@ -1,13 +1,5 @@
 const router = require('express').Router()
 const Users = require('../auth/auth-model');
-//add midware to restrict access to end point
-
-
-
-//get all users // add a restricted
-    // router.get('/', (req, res, next) => {
-    //     res.status(200).json('gets users')
-    // })
 
 
 router.get("/", (req, res) => { 
@@ -18,7 +10,24 @@ router.get("/", (req, res) => {
       .catch(err => res.send(err));
   });
 
-  router.get("/:id", (req, res) => {   
+  function validateId(req, res, next) {
+    const id = req.params.id;
+    Users.findById(id)
+      .then(user => {
+        if (user) {
+          req.user = user;
+          next();
+        } else {
+          res.status(404).json({ message: "User doesn't exist." });
+        }
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  }
+
+// validate userID exists 
+  router.get("/:id", validateId, (req, res) => {   
     Users.findById(req.params.id)
       .then(user => {
         res.json(user);
@@ -26,15 +35,6 @@ router.get("/", (req, res) => {
       .catch(err => res.send(err));
   });
 
-  // router.get("/:id",  (req, res) => {
-  //   const id = req.body.user_id;
-  //   Users.findById(id)
-  //     .then(user => {
-  //       res.status(200).json(user);
-  //     })
-  //     .catch(err => {
-  //       res.status(500).json(err);
-  //     });
-  // });  
+
 
 module.exports = router
