@@ -10,8 +10,8 @@ router.get('/', (req, res, next) => {
     .catch(err => res.send(err));
 })
 
-//GET BY /:ID >>>>>> needs middle ware if unexisting id is inputted
-router.get("/:id",  (req, res) => {
+//GET BY /:ID >>>>>> needs middle ware if un-existing id is inputted
+router.get("/:id",  validateId, (req, res) => {
     const id = req.params.id;
     Item.findById(id)
       .then(item => {
@@ -31,6 +31,21 @@ router.get("/:id",  (req, res) => {
     }
   }
 
+  function validateId(req, res, next) {
+    const id = req.params.id;
+    Item.findById(id)
+      .then(item => {
+        if (item) {
+          req.item = item;
+          next();
+        } else {
+          res.status(404).json({ message: "Item doesn't exist." });
+        }
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  }
 
   // adds new item 200 ok
   router.post('/add-item', validateContent , (req, res) => {
@@ -43,25 +58,26 @@ router.get("/:id",  (req, res) => {
     });
 })
 
+
   // update an item status 201
-  router.put('/:id', (req, res, next) => {
-    const id = req.params.id;
-    const changes = req.body; 
-    Item.updateItem(id, changes)
-      .then(updatedItem => {
-        res.status(201).json(updatedItem);
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
+  router.put('/:id', validateId, validateContent, (req, res, next) => {
+    const {id} = req.params;
+  const changes = req.body;
+  Item.updateItem(id, changes)
+    .then(updatedItem => {
+      res.status(201).json(updatedItem);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
 })
 
 // deletes an item 200 OK
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateId, (req, res) => {
   const id = req.params.id;
   Item.deleteItem(id)
     .then(deletedItem => {
-      res.status(200).json({ message: `Item with ${id} successfully deleted.`});
+      res.status(200).json({ message: `Item with id ${id} successfully deleted.`});
     })
     .catch(err => {
       res.status(500).json(err);
