@@ -4,10 +4,6 @@ const Item = require('./items-model')
   const {
     validateContent,
     validateId,
-    validateItemName,
-    validateItemLocation,
-    validateItemDesc,
-    validateItemPrice,
   } = require('./items-midware')
 
 router.get('/', (req, res, next) => {
@@ -33,10 +29,6 @@ router.get("/:id",  validateId, (req, res) => {
   // add middleware to validate user
   router.post('/add-item', 
   validateContent, 
-  validateItemName, 
-  validateItemLocation,
-  validateItemDesc,
-  validateItemPrice,
   (req, res) => {
     Item.addItem(req.body)
     .then(item => {
@@ -52,10 +44,6 @@ router.get("/:id",  validateId, (req, res) => {
   router.put('/:id', 
   validateId, 
   validateContent, 
-  validateItemName, 
-  validateItemLocation,
-  validateItemDesc,
-  validateItemPrice,
    (req, res, next) => {
     const {id} = req.params;
   const changes = req.body;
